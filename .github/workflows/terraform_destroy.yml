@@ -1,0 +1,26 @@
+name: "Terraform Destroy"
+
+# Trigger the workflow on pull_request
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "type DESTROY to confirm"
+        required: true
+env:
+  # verbosity setting for Terraform logs
+  TF_LOG: INFO
+  # Credentials for deployment to AWS
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  terraform_destroy:
+    if: ${{ github.event.inputs.confirmation }} == "DESTROY"
+    name: "Terraform Destroy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -input=false -no-color
+        continue-on-error: true
