@@ -53,5 +53,5 @@ data "aws_iam_policy_document" "azmi1-iam-policy-doc" {
 
 resource "aws_sqs_queue_policy" "test" {
   queue_url = aws_sqs_queue.ce7-azmi1-sqs-tf.id
-  policy    = data.aws_iam_policy_document.test.json
+  policy    = data.aws_iam_policy_document.azmi1-iam-policy-doc.json
 }
