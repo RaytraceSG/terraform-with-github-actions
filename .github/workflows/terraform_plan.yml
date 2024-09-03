@@ -3,6 +3,10 @@ name: "Terraform Plan"
 # Trigger the workflow on pull_request
 on:
   pull_request:
+    branches:
+      - main
+    paths:
+      - terraform/**
 
 env:
   # verbosity setting for Terraform logs
@@ -15,6 +19,11 @@ jobs:
   terraform_plan:
     name: "Terraform Plan"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        # We keep Terraform files in the terraform directory.
+        working-directory: ./terraform
     permissions:
       pull-requests: write
     steps:
@@ -29,7 +38,6 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
-        continue-on-error: true
 
       - name: Terraform Init
         id: init

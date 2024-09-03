@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - terraform/**
 
 env:
   # verbosity setting for Terraform logs
@@ -17,6 +19,11 @@ jobs:
   terraform_apply:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        # We keep Terraform files in the terraform directory.
+        working-directory: ./terraform
     permissions:
       contents: read
     steps:
