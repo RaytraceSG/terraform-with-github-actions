@@ -16,7 +16,6 @@ env:
 
 jobs:
   terraform_destroy:
-    if: ${{ github.event.inputs.confirmation }} == "DESTROY"
     name: "Terraform Destroy"
     runs-on: ubuntu-latest
     steps:
@@ -41,6 +40,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Destroy
+        if: ${{ github.event.inputs.confirmation }} == "DESTROY"
         id: destroy
         run: terraform destroy -input=false -no-color
         continue-on-error: true
