@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "ce7-azmi1-sns-tf" {
-  name = "ce7-azmi1-sns-tf"
+  name = "ce7-${var.myname}-sns-tf"
 
   tags = {
     Name = "ce7-azmi1-sns-tf"
